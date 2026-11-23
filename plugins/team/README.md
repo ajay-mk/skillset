@@ -10,7 +10,7 @@ large.
 | `explorer` | Sonnet | Maps the code the task touches, read-only |
 | `implementor` | Opus | Writes the code for one assigned part |
 | `tester` | Opus | Writes tests from the task file and reports gaps |
-| `simplifier` | Opus | Reports over-engineering in the finished change, read-only |
+| `simplifier` | Opus | Reports over-engineering and low-value tests in the finished change, read-only |
 | `doc-writer` | Sonnet | Documents the finished change |
 
 Main is meant to run on Fable. [`skills/run/SKILL.md`](skills/run/SKILL.md)
@@ -25,7 +25,8 @@ claude plugin install team@skillset
 
 Each agent follows these skills when they are installed:
 
-- `tester`: [`test-audit`](../../skills/review/test-audit) from this repo.
+- `tester` and `simplifier`: [`test-audit`](../../skills/review/test-audit)
+  from this repo.
 - `simplifier`: `ponytail-review` from
   [ponytail](https://github.com/DietrichGebert/ponytail).
 - `doc-writer`: `technical-writing` from

@@ -15,7 +15,7 @@ file, so put every decision there.
 | `team:explorer` | Sonnet | Maps the code the task touches, read-only |
 | `team:implementor` | Opus | Writes the code for one assigned part |
 | `team:tester` | Opus | Writes tests from the task file and reports gaps |
-| `team:simplifier` | Opus | Reports over-engineering in the finished change, read-only |
+| `team:simplifier` | Opus | Reports over-engineering and low-value tests in the finished change, read-only |
 | `team:doc-writer` | Sonnet | Documents the finished diff |
 
 This skill is written for Main on Fable. If this session runs on another
@@ -110,8 +110,10 @@ it runs.
    If one gap goes back and forth three times, stop and ask the user. A
    disagreement that persists usually means the request is ambiguous.
 7. Once the acceptance checks pass, start the simplifier with the task file.
-   Triage its findings as you do gaps. Send the ones you accept to the
-   implementor, log the rest, and have the tester rerun after the changes.
+   It reviews the tests as well as the code. Triage its findings as you do
+   gaps. Send accepted code findings to the implementor and accepted test
+   findings to the tester, log the rest, and have the tester rerun after the
+   changes.
    Skip the simplifier for a change of a few lines.
 8. If the change affects anything users or developers read, start the
    doc-writer with the task file. It reads the change from the base. It runs
