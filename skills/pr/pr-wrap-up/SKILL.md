@@ -7,7 +7,9 @@ description: Take a branch from finished work to a reviewed pull request by runn
 
 Find where the PR stands, run the next step, and stop at each point where the
 user must approve something. The steps are their own skills; follow each
-one's instructions rather than restating them here.
+one's instructions rather than restating them here. When they come from the
+skillset Claude Code plugin, their names carry a `skillset:` prefix, such as
+`skillset:pr-preflight`.
 
 ## 1. Find the stage
 

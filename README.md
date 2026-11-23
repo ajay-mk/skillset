@@ -34,7 +34,7 @@ pr-wrap-up ─▶ pr-preflight ─▶ pr-describe ─▶ (review) ─▶ pr-comm
 
 | Skill | What it does |
 |---|---|
-| [`paper-guide`](skills/research/paper-guide) | Run with `/paper-guide`. Builds an offline, multi-page HTML guide that explains one paper: chapters, typeset equations, diagrams, demos, and walked-through proofs. From a PDF, a DOI, or a Zotero item. |
+| [`paper-guide`](skills/research/paper-guide) | Run with `/skillset:paper-guide`, or `/paper-guide` outside the plugin. Builds an offline, multi-page HTML guide that explains one paper: chapters, typeset equations, diagrams, demos, and walked-through proofs. From a PDF, a DOI, or a Zotero item. |
 | [`zotero-fetch-pdfs`](skills/research/zotero-fetch-pdfs) | Finds and attaches missing PDFs for items in a Zotero collection, through your library's proxy in Chrome. |
 
 ## Plugins
@@ -43,12 +43,19 @@ The repo is also a Claude Code plugin marketplace named `skillset`.
 
 | Plugin | What it does |
 |---|---|
+| `skillset` | Every skill above, named `skillset:<skill>`, plus the read-only agent that `full-review` starts for each pass. |
 | [`team`](plugins/team) | Runs a large coding task with a team of subagents that the main session coordinates. |
 
 ## Install
 
-With [`skills`](https://github.com/vercel-labs/skills), into any supported
-tool:
+In Claude Code, install the `skillset` plugin:
+
+```sh
+claude plugin marketplace add ajay-mk/skillset
+claude plugin install skillset@skillset
+```
+
+For Codex or another tool, use [`skills`](https://github.com/vercel-labs/skills):
 
 ```sh
 npx skills add ajay-mk/skillset
@@ -60,10 +67,11 @@ Or clone and link, to edit the skills in place:
 git clone git@github.com:ajay-mk/skillset.git && ./skillset/install.sh
 ```
 
-`install.sh` symlinks each skill into `~/.claude/skills` and `~/.codex/skills`
-for whichever tool is installed. It does not install the plugins. Re-running is safe: correct links are left
-alone, links into this repo that moved are updated, and anything else in the
-way is reported and skipped.
+`install.sh` symlinks each skill into `~/.codex/skills`. It also removes links
+into this repo from `~/.claude/skills`, which older versions made, because
+Claude Code now gets the skills from the plugin. Re-running is safe: correct
+links are left alone, links into this repo that moved are updated, and
+anything else in the way is reported and skipped.
 
 ## Requirements
 

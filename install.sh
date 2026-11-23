@@ -1,5 +1,6 @@
 #!/bin/sh
-# Symlink this repo's skills into Claude Code and Codex.
+# Symlink this repo's skills into Codex. Claude Code loads them from the
+# skillset plugin instead.
 # Safe to re-run: correct links are left alone, links into this repo that moved
 # are updated, and anything else in the way is reported and skipped.
 set -e
@@ -30,8 +31,15 @@ link() {
 for dir in "$repo"/skills/*/*/; do
   [ -f "$dir/SKILL.md" ] || continue
   dir=${dir%/}; name=$(basename "$dir")
-  link "$dir" "$HOME/.claude/skills/$name"
   link "$dir" "$HOME/.codex/skills/$name"
+done
+
+# Drop links into this repo from ~/.claude/skills, left by earlier versions of
+# this script, so Claude Code doesn't load each skill twice.
+for l in "$HOME"/.claude/skills/*; do
+  case "$(readlink "$l" 2>/dev/null)" in
+    "$repo"/*) rm "$l"; echo "unlink $l" ;;
+  esac
 done
 
 echo "$n new link(s)"
