@@ -1,6 +1,6 @@
 ---
 name: full-review
-description: Read-only deep review of a change in parallel passes (code, tests, errors, comments, types, simplification, standards, over-engineering), verified and ranked with a fix per finding. Use only when the user says "full review" or invokes /full-review; not for ordinary review requests.
+description: Read-only deep review of a change in parallel passes (code, tests, errors, comments, types, simplification, standards, over-engineering), verified and ranked with a fix per finding. Use only when the user says "full review" or invokes /full-review or /skillset:full-review; not for ordinary review requests.
 ---
 
 # Full review
@@ -54,28 +54,32 @@ across groups. One agent reading a large diff spreads its attention thin and
 misses bugs in the second half.
 
 Passes must read whole files and trace into callers, so use an agent that
-reviews rather than one that searches, on the session's own model:
+reviews rather than one that searches:
 
-- **Claude Code**: `subagent_type: general-purpose`. Not `Explore`: it reads
-  excerpts to locate code rather than audit it, which is how bugs outside the
-  hunk get missed. The prompt ending and the status check in step 4 keep it
-  read-only.
+- **Claude Code with the skillset plugin**: `subagent_type:
+  skillset:review-pass`. It has no edit tools. Set `model` per pass:
+
+  | Model | Passes |
+  |---|---|
+  | `opus` | `code`, `tests`, `errors` |
+  | `sonnet` | `comments`, `types`, `simplify`, `standards`, `ponytail` |
+
+  The prompt holds the scope block, the pass name, and the absolute path of
+  `passes.md`.
+- **Claude Code without the plugin**: `subagent_type: general-purpose`, on the
+  session's own model. Not `Explore`: it reads excerpts to locate code rather
+  than audit it, which is how bugs outside the hunk get missed.
 - **Codex**: a read-only subagent.
 
-Each prompt holds the scope block, that pass's section of `passes.md` pasted in
-full, and this ending:
+Without the plugin agent, paste into each prompt the scope block, the
+**Report format** section of `passes.md`, and that pass's section, in full.
+The report format and the status check in step 4 keep these agents
+read-only.
 
-> Read-only review. Do not edit, write, stage, commit, or post anything. For
-> each finding give: `<file>:<line>`, severity (`critical`, `important`, or
-> `suggestion`), what is wrong, the evidence (quoted code or the rule it
-> breaks), and a suggested fix (the replacement code, or the specific change
-> when the fix is too large to write out). For critical findings also give a
-> concrete failure scenario: the input or state, and the wrong result or
-> crash it produces. Report issues the diff introduces, plus existing code
-> the diff breaks or newly exercises (an unchanged caller of a changed
-> function is in scope). When unsure, report the finding with your
-> confidence rather than drop it; a later step verifies every finding. Keep
-> each finding to a few lines, but never drop a finding to save space.
+The `tests` pass needs the test-audit skill's `SKILL.md`, which sits in a
+folder next to this skill's folder. If that file exists, give its absolute
+path to the `tests` pass in every mode, or read it yourself when you run the
+passes inline.
 
 **Lead pass** (larger diffs). While the subagents run, do the `code` pass
 yourself over the whole diff and tag those findings `[lead]`. Verification in

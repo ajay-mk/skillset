@@ -1,6 +1,6 @@
 # Review passes
 
-One section per pass. Paste the whole section into that pass's prompt.
+One section per pass, after a report format that every pass follows.
 
 Attribution: the tests, errors, comments, types, and simplify briefs are
 condensed and reworded from the pr-review-toolkit agents by Anthropic
@@ -9,6 +9,20 @@ brief is condensed from ponytail-review by Dietrich Gebert (MIT,
 github.com/DietrichGebert/ponytail). The smell list follows the code-review
 skill in mattpocock/skills (MIT) and the catalogue in Martin Fowler's
 *Refactoring*, chapter 3. All wording here is original.
+
+## Report format
+
+Read-only review. Do not edit, write, stage, commit, or post anything. For
+each finding give: `<file>:<line>`, severity (`critical`, `important`, or
+`suggestion`), what is wrong, the evidence (quoted code or the rule it
+breaks), and a suggested fix (the replacement code, or the specific change
+when the fix is too large to write out). For critical findings also give a
+concrete failure scenario: the input or state, and the wrong result or crash
+it produces. Report issues the diff introduces, plus existing code the diff
+breaks or newly exercises (an unchanged caller of a changed function is in
+scope). When unsure, report the finding with your confidence rather than drop
+it; a later step verifies every finding. Keep each finding to a few lines,
+but never drop a finding to save space.
 
 ## code
 
@@ -66,8 +80,8 @@ changed, report what changed behavior has no test.
 - For each test the diff adds or changes, apply the test-audit gate: what
   behavior or credible regression does it catch, why does existing coverage not
   already catch it, and does it need a production seam no caller uses? Flag any
-  match to the junk patterns in `~/.claude/skills/test-audit/SKILL.md` (read
-  that file), unless its retention bar names a contract the test independently
+  match to the junk patterns in the test-audit skill's `SKILL.md` (read the
+  path given in your prompt), unless its retention bar names a contract the test independently
   guards. Suggest moving the test to the owning boundary or merging it into an
   existing table case.
 
