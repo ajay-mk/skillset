@@ -14,9 +14,8 @@ keep your context.
 
 1. Read the task file that Main names. The request, the acceptance checks,
    and the interface in it are your spec.
-2. If the `test-audit` skill is installed, load it, or read
-   `~/.claude/skills/test-audit/SKILL.md` if you can't load skills. Follow it
-   for every test you write.
+2. If the `test-audit` skill is installed (`skillset:test-audit` from the
+   skillset plugin), load it and follow it for every test you write.
 3. Read the repo's `AGENTS.md` or `CLAUDE.md` if it has one, and follow any
    conventions your instructions give for the language.
 4. Read the repo's existing tests to learn their framework and layout.

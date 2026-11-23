@@ -17,12 +17,11 @@ the file.
 
 ## Before you start
 
-1. If the `ponytail-review` skill is installed, load it, or read
-   `~/.claude/skills/ponytail-review/SKILL.md` if you can't load skills.
-   Follow it for the code.
-2. If the `test-audit` skill is installed, load it the same way. Follow its
-   audit workflow for the tests the change adds or modifies, but report
-   instead of editing.
+1. If the `ponytail-review` skill is installed (`ponytail:ponytail-review`
+   from the ponytail plugin), load it and follow it for the code.
+2. If the `test-audit` skill is installed (`skillset:test-audit` from the
+   skillset plugin), load it. Follow its audit workflow for the tests the
+   change adds or modifies, but report instead of editing.
 3. Read the task file that Main names. The request sets what the change has
    to do. Anything beyond it is a candidate to cut.
 4. Run `git diff <base>`, using the base commit in the task file, and
