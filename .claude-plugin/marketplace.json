@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "skillset",
+  "description": "Claude Code plugins from the skillset repo.",
+  "owner": {
+    "name": "Ajay",
+    "url": "https://github.com/ajay-mk"
+  },
+  "plugins": [
+    {
+      "name": "team",
+      "description": "Run a large coding task with subagents: an implementor and a tester on Opus and a doc-writer on Sonnet, coordinated by the main session.",
+      "source": "./plugins/team",
+      "category": "development"
+    }
+  ]
+}

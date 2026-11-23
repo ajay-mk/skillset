@@ -1,0 +1,9 @@
+{
+  "name": "team",
+  "version": "0.1.0",
+  "description": "Run a large coding task with subagents: an implementor and a tester on Opus and a doc-writer on Sonnet, coordinated by the main session.",
+  "author": {
+    "name": "Ajay",
+    "url": "https://github.com/ajay-mk"
+  }
+}

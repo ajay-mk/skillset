@@ -37,6 +37,20 @@ pr-wrap-up ─▶ pr-preflight ─▶ pr-describe ─▶ (review) ─▶ pr-comm
 | [`paper-guide`](skills/research/paper-guide) | Run with `/paper-guide`. Builds an offline, multi-page HTML guide that explains one paper: chapters, typeset equations, diagrams, demos, and walked-through proofs. From a PDF, a DOI, or a Zotero item. |
 | [`zotero-fetch-pdfs`](skills/research/zotero-fetch-pdfs) | Finds and attaches missing PDFs for items in a Zotero collection, through your library's proxy in Chrome. |
 
+## Plugins
+
+Claude Code plugins, for work that needs subagents as well as a skill. The
+repo is also a plugin marketplace named `skillset`.
+
+| Plugin | What it does |
+|---|---|
+| [`team`](plugins/team) | Runs a large coding task with subagents: `implementor` and `tester` on Opus, and `doc-writer` on Sonnet. The main session, on Fable, coordinates them and talks to you. Starts on `/team:run`, or asks first when a task looks large. |
+
+```sh
+claude plugin marketplace add ajay-mk/skillset
+claude plugin install team@skillset
+```
+
 ## Install
 
 With [`skills`](https://github.com/vercel-labs/skills), into any supported
@@ -53,7 +67,7 @@ git clone git@github.com:ajay-mk/skillset.git && ./skillset/install.sh
 ```
 
 `install.sh` symlinks each skill into `~/.claude/skills` and `~/.codex/skills`
-for whichever tool is installed. Re-running is safe: correct links are left
+for whichever tool is installed. It does not install the plugins. Re-running is safe: correct links are left
 alone, links into this repo that moved are updated, and anything else in the
 way is reported and skipped.
 
@@ -63,6 +77,9 @@ way is reported and skipped.
 - Python 3 for the scripts in `pr-comments` and `review-helper`.
 - Optional: [`unslop`](https://github.com/cursor/plugins) (pstack), which
   `pr-describe` and `pr-comments` apply to PR text and replies when installed.
+- Optional: [`technical-writing`](https://github.com/cursor/plugins) (pstack),
+  which the `team` plugin's `doc-writer` follows when installed. Its `tester`
+  follows `test-audit` from this repo the same way.
 - [zotero-mcp](https://github.com/54yyyu/zotero-mcp) and Claude in Chrome for
   `zotero-fetch-pdfs`. `paper-guide` uses zotero-mcp only to find a PDF when
   given a Zotero item instead of a file.
@@ -71,9 +88,15 @@ way is reported and skipped.
 
 ```
 skills/<group>/<skill>/SKILL.md
+plugins/<plugin>/.claude-plugin/plugin.json
+plugins/<plugin>/skills/<skill>/SKILL.md
+plugins/<plugin>/agents/<agent>.md
+.claude-plugin/marketplace.json             # lists the plugins
 ```
 
 Add a skill by creating its folder under a group and re-running `install.sh`.
+Add a plugin by creating its folder under `plugins/` and listing it in
+`.claude-plugin/marketplace.json`.
 
 ## License and credits
 
