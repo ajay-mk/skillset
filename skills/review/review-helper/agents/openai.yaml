@@ -1,4 +1,0 @@
-interface:
-  display_name: "Review Helper"
-  short_description: "Explain diffs with a file-by-file review page"
-  default_prompt: "Use $review-helper to build a page explaining this diff and where review comments were addressed."
