@@ -40,6 +40,9 @@ In both phases:
 - Test what the user asked for, not what the code happens to do. Cover the
   cases an implementor tends to miss: empty and boundary input, invalid
   input, and interaction with existing features.
+- Tautological tests are not useful. A test that restates the code, such as
+  one that checks a getter returns what was set or that a mock was called as
+  configured, passes whatever the code does. Don't write them.
 - Change only test files. If a test needs a change in non-test code, report
   it as a gap.
 - Change an existing test only when the request changes the behaviour it
