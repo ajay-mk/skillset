@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "team",
-      "description": "Run a large coding task with subagents: an implementor and a tester on Opus and a doc-writer on Sonnet, coordinated by the main session.",
+      "description": "Run a large coding task with subagents: an implementor, a tester, and a simplifier on Opus, and an explorer and a doc-writer on Sonnet, coordinated by the main session.",
       "source": "./plugins/team",
       "category": "development"
     }

@@ -39,17 +39,11 @@ pr-wrap-up ─▶ pr-preflight ─▶ pr-describe ─▶ (review) ─▶ pr-comm
 
 ## Plugins
 
-Claude Code plugins, for work that needs subagents as well as a skill. The
-repo is also a plugin marketplace named `skillset`.
+The repo is also a Claude Code plugin marketplace named `skillset`.
 
 | Plugin | What it does |
 |---|---|
-| [`team`](plugins/team) | Runs a large coding task with subagents: `implementor` and `tester` on Opus, and `doc-writer` on Sonnet. The main session, on Fable, coordinates them and talks to you. Starts on `/team:run`, or asks first when a task looks large. |
-
-```sh
-claude plugin marketplace add ajay-mk/skillset
-claude plugin install team@skillset
-```
+| [`team`](plugins/team) | Runs a large coding task with a team of subagents that the main session coordinates. |
 
 ## Install
 
@@ -77,9 +71,6 @@ way is reported and skipped.
 - Python 3 for the scripts in `pr-comments` and `review-helper`.
 - Optional: [`unslop`](https://github.com/cursor/plugins) (pstack), which
   `pr-describe` and `pr-comments` apply to PR text and replies when installed.
-- Optional: [`technical-writing`](https://github.com/cursor/plugins) (pstack),
-  which the `team` plugin's `doc-writer` follows when installed. Its `tester`
-  follows `test-audit` from this repo the same way.
 - [zotero-mcp](https://github.com/54yyyu/zotero-mcp) and Claude in Chrome for
   `zotero-fetch-pdfs`. `paper-guide` uses zotero-mcp only to find a PDF when
   given a Zotero item instead of a file.
@@ -88,10 +79,7 @@ way is reported and skipped.
 
 ```
 skills/<group>/<skill>/SKILL.md
-plugins/<plugin>/.claude-plugin/plugin.json
-plugins/<plugin>/skills/<skill>/SKILL.md
-plugins/<plugin>/agents/<agent>.md
-.claude-plugin/marketplace.json             # lists the plugins
+plugins/<plugin>/                           # listed in .claude-plugin/marketplace.json
 ```
 
 Add a skill by creating its folder under a group and re-running `install.sh`.
