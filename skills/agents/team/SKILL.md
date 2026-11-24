@@ -1,6 +1,6 @@
 ---
 name: team
-description: Run a large coding task with subagents (explorer, implementor, tester, simplifier, doc-writer) coordinated by this session. Use when the user types /skillset:team or /team, including to hand the team a task already under way in this session. Also use when a task changes several files or modules, needs new tests and new docs, or is a new feature or refactor rather than a fix. Then ask the user before starting any agent.
+description: Run a large coding task with subagents (explorer, implementor, tester, simplifier, doc-writer, and a Fable advisor) coordinated by this session. Use when the user types /skillset:team or /team, including to hand the team a task already under way in this session. Also use when a task changes several files or modules, needs new tests and new docs, or is a new feature or refactor rather than a fix. Then ask the user before starting any agent.
 ---
 
 # Team
@@ -17,6 +17,7 @@ file, so put every decision there.
 | `tester` | Opus | Writes tests from the task file and reports gaps |
 | `simplifier` | Opus | Reports over-engineering and low-value tests in the finished change, read-only |
 | `doc-writer` | Sonnet | Documents the finished diff |
+| `advisor` | Fable | Gives you a second opinion on decisions, read-only |
 
 ## Start the agents
 
@@ -36,8 +37,24 @@ your tool's equivalent.
 
 ## Check the model
 
-This skill is written for Main on Fable. If this session runs on another
-model, say so to the user once, and go on unless they want to switch.
+Main runs on Opus at high effort, and the advisor on Fable. If this session
+runs on another model or effort, say so to the user once, and go on unless
+they want to switch.
+
+## Ask the advisor
+
+Ask the advisor before decisions that are costly to get wrong:
+
+- The task file, before you show the acceptance checks to the user.
+- A gap that has gone back and forth twice, before you take it to the user.
+- A simplifier finding you are unsure whether to accept.
+- The finished change, before you report to the user.
+
+Give it the task file's path, your current decision, and one specific
+question. It can't see this conversation. Send later questions to the same
+advisor with `SendMessage`, so it keeps what it has read. Weigh its answer
+rather than follow it blindly. If you still disagree after a follow-up, tell
+the user both views and let them decide.
 
 ## Decide whether to use the team
 
@@ -116,8 +133,9 @@ Base: <commit hash at the start>
   `git diff <base>`. Use both. If the tree already had changes at the start
   that belong to other work, list them under the base so that nobody counts
   them as part of the task.
-- **Acceptance checks** are three to five commands or behaviours. Show them to
-  the user and get approval before you start any agent. They decide when the
+- **Acceptance checks** are three to five commands or behaviours. Ask the
+  advisor about them, then show them to the user and get approval before you
+  start any agent. They decide when the
   team is done, so a vague check leads to a loop that never ends.
 - **Interface** lets the tester write tests before the code exists.
 - **Parts** matters only with several implementors. No two parts share a file,
@@ -151,8 +169,9 @@ it runs.
 5. Send follow-ups with `SendMessage` to the agent that already has the
    context. Don't start a new agent for the same part.
 6. Repeat steps 4 and 5 until the acceptance checks pass and no gap is open.
-   If one gap goes back and forth three times, stop and ask the user. A
-   disagreement that persists usually means the request is ambiguous.
+   If one gap goes back and forth twice, ask the advisor. After a third
+   round, stop and ask the user. A disagreement that persists usually means
+   the request is ambiguous.
 7. Once the acceptance checks pass, start the simplifier with the task file.
    It reviews the tests as well as the code. Triage its findings as you do
    gaps. Send accepted code findings to the implementor and accepted test
@@ -170,7 +189,8 @@ it runs.
    reason in the request, not just a passing run.
 2. Run the acceptance checks yourself. An agent's report is a claim, not a
    result.
-3. Report to the user: what changed, the exact commands you ran and whether
+3. Ask the advisor to review the change against the request.
+4. Report to the user: what changed, the exact commands you ran and whether
    they passed, and anything left open. Don't commit unless the user asks.
 
 ## Keep the cost down

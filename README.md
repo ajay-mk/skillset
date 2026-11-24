@@ -44,7 +44,7 @@ after each change, for example with `claude plugin update skillset@skillset`.
 
 | Skill | What it does |
 |---|---|
-| [`team`](skills/agents/team) | Runs a large coding task with subagents that the main session coordinates: `explorer` and `doc-writer` on Sonnet, and `implementor`, `tester`, and `simplifier` on Opus. Asks first unless you invoke it. The agents are role files in [`agents/`](agents). |
+| [`team`](skills/agents/team) | Runs a large coding task with subagents that the main session coordinates: `explorer` and `doc-writer` on Sonnet, `implementor`, `tester`, and `simplifier` on Opus, and an `advisor` on Fable. The main session runs on Opus at high effort. Asks first unless you invoke it. The agents are role files in [`agents/`](agents). |
 
 </details>
 
