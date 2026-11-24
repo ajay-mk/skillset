@@ -1,6 +1,6 @@
 {
   "name": "skillset",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "The skillset repo's skills (team, pull requests, review, research) and the agents that team and full-review start.",
   "author": {
     "name": "Ajay Melekamburath",

@@ -87,6 +87,35 @@ picks up where the work stands.
 
 Then continue with the steps below as for a new task.
 
+## Split a long task into phases
+
+Split the task into phases when one loop can't hold it: it needs more than
+one interface settled, or more code than an agent can keep in view. Each
+phase is a full run of the loop below, from task file to finish.
+
+1. Propose the phases. Give each one a goal and its own acceptance checks,
+   and settle the interfaces that cross phases in the first one. A boundary
+   that splits an interface makes a later phase rework an earlier one. Ask
+   the advisor about the plan, then get the user's approval before you start
+   the first phase.
+2. Every phase ends with the code building and the tests passing. Stop
+   there, report the phase as in **Finish**, and get the user's approval
+   before the next phase. Commit the phase only if the user says so.
+3. Set the next phase's **Base** to the end of the previous one, so each
+   diff covers one phase.
+4. Before each phase, update its plan and acceptance checks with what the
+   earlier phases taught you. Ask the advisor, and show the user what
+   changed. Start the phase only after the user approves.
+5. Start fresh agents for each phase. Their context from an earlier phase
+   costs more than it helps. Keep the advisor, which holds the view of the
+   whole task.
+6. Run the simplifier every phase, so its cuts stay small. Run the
+   doc-writer every phase, or only after the last one when the docs would
+   change from phase to phase.
+
+The take-over steps also resume a phased task in a new session, from the
+task file.
+
 ## Write the task file
 
 You need to know the code to settle the interface and the parts. Start the
@@ -110,6 +139,11 @@ Base: <commit hash at the start>
 
 ## Request
 > <the user's words, quoted>
+
+## Phases
+<only for a phased task: one line per phase with its goal. A finished phase
+keeps one line: what it did, its commit, and the decisions later phases need.
+Only the current phase has the sections below in full.>
 
 ## Done so far
 <only when taking over: what exists, and whether it builds and passes>
