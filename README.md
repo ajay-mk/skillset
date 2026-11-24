@@ -1,43 +1,52 @@
 # skillset
 
 Agent skills for Claude Code, Codex, and any tool that reads `SKILL.md`
-folders, plus Claude Code plugins that add subagents.
+folders. In Claude Code they install as one plugin, with the subagents that
+`team` and `full-review` start.
 
 ## Install
 
-In Claude Code:
+Claude Code:
 
 ```sh
 claude plugin marketplace add ajay-mk/skillset
 claude plugin install skillset@skillset
 ```
 
+Codex:
+
+```sh
+codex plugin marketplace add ajay-mk/skillset
+codex plugin add skillset@skillset
+```
+
 The skills are then named `skillset:<skill>`, such as `/skillset:pr-wrap-up`.
 
 <details>
-<summary>Codex and other tools</summary>
+<summary>Other tools, and editing the skills</summary>
 
-With [`skills`](https://github.com/vercel-labs/skills):
+For other tools, use [`skills`](https://github.com/vercel-labs/skills):
 
 ```sh
 npx skills add ajay-mk/skillset
 ```
 
-Or clone and link, to edit the skills in place:
-
-```sh
-git clone git@github.com:ajay-mk/skillset.git && ./skillset/install.sh
-```
-
-`install.sh` symlinks each skill into `~/.codex/skills`. It also removes links
-into this repo from `~/.claude/skills`, which older versions made, because
-Claude Code gets the skills from the plugin. Re-running is safe: correct links
-are left alone, links into this repo that moved are updated, and anything else
-in the way is reported and skipped.
+To work on the skills, add a local clone as the marketplace instead of
+`ajay-mk/skillset`. Both tools install a copy of the plugin, so update it
+after each change, for example with `claude plugin update skillset@skillset`.
 
 </details>
 
 ## Skills
+
+<details>
+<summary><b>Agents</b>: <code>team</code></summary>
+
+| Skill | What it does |
+|---|---|
+| [`team`](skills/agents/team) | Runs a large coding task with subagents that the main session coordinates: `explorer` and `doc-writer` on Sonnet, and `implementor`, `tester`, and `simplifier` on Opus. Asks first unless you invoke it. The agents are role files in [`agents/`](agents). |
+
+</details>
 
 <details>
 <summary><b>Pull requests</b>: <code>pr-wrap-up</code>, <code>pr-preflight</code>, <code>pr-describe</code>, <code>pr-comments</code></summary>
@@ -80,15 +89,6 @@ pr-wrap-up ─▶ pr-preflight ─▶ pr-describe ─▶ (review) ─▶ pr-comm
 
 </details>
 
-## Plugins
-
-The repo is also a Claude Code plugin marketplace named `skillset`.
-
-| Plugin | What it does |
-|---|---|
-| `skillset` | All the skills above, plus the read-only agent that `full-review` starts for each pass. |
-| [`team`](plugins/team) | Runs a large coding task with a team of subagents that the main session coordinates. Install with `claude plugin install team@skillset`. |
-
 ## More
 
 <details>
@@ -109,14 +109,12 @@ The repo is also a Claude Code plugin marketplace named `skillset`.
 
 ```
 skills/<group>/<skill>/SKILL.md
-agents/<agent>.md                  # agents of the skillset plugin
-plugins/<plugin>/                  # other plugins
-.claude-plugin/                    # skillset plugin and marketplace manifests
+agents/<agent>.md                  # subagents, also read as role files outside Claude Code
+.claude-plugin/                    # plugin and marketplace manifests
 ```
 
-Add a skill by creating its folder under a group and re-running `install.sh`.
-Add a plugin by creating its folder under `plugins/` and listing it in
-`.claude-plugin/marketplace.json`.
+Add a skill by creating its folder under a group.
+A new group also needs its path in `.claude-plugin/plugin.json`.
 
 </details>
 
