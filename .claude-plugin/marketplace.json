@@ -9,14 +9,8 @@
   "plugins": [
     {
       "name": "skillset",
-      "description": "The skillset repo's skills (pull requests, review, research) and the read-only review agent that full-review starts for each pass.",
+      "description": "The skillset repo's skills (team, pull requests, review, research) and the agents that team and full-review start.",
       "source": "./",
-      "category": "development"
-    },
-    {
-      "name": "team",
-      "description": "Run a large coding task with subagents: an implementor, a tester, and a simplifier on Opus, and an explorer and a doc-writer on Sonnet, coordinated by the main session.",
-      "source": "./plugins/team",
       "category": "development"
     }
   ]

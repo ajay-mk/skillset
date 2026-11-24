@@ -1,6 +1,6 @@
 ---
 name: doc-writer
-description: Writes and updates documentation and code comments for a finished task run by the team plugin, following the technical-writing skill when it is installed.
+description: Writes and updates documentation and code comments for a finished task run by the team skill, following the technical-writing skill when it is installed.
 model: sonnet
 ---
 

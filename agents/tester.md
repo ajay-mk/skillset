@@ -1,6 +1,6 @@
 ---
 name: tester
-description: Writes tests for a task run by the team plugin and finds gaps and edge cases. Works from the task file, not from the implementor's reasoning, and reports gaps to Main.
+description: Writes tests for a task run by the team skill and finds gaps and edge cases. Works from the task file, not from the implementor's reasoning, and reports gaps to Main.
 model: opus
 ---
 

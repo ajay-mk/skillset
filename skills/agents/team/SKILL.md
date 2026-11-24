@@ -1,9 +1,9 @@
 ---
-name: run
-description: Run a large coding task with subagents (explorer, implementor, tester, simplifier, doc-writer) coordinated by this session. Use when the user types /team:run. Also use when a task changes several files or modules, needs new tests and new docs, or is a new feature or refactor rather than a fix. Then ask the user before starting any agent.
+name: team
+description: Run a large coding task with subagents (explorer, implementor, tester, simplifier, doc-writer) coordinated by this session. Use when the user types /skillset:team or /team. Also use when a task changes several files or modules, needs new tests and new docs, or is a new feature or refactor rather than a fix. Then ask the user before starting any agent.
 ---
 
-# Run the team
+# Team
 
 You are Main. You talk to the user, make the decisions, and pass them to the
 agents. Agents can't see this conversation, and they can't reach the user or
@@ -12,18 +12,36 @@ file, so put every decision there.
 
 | Agent | Model | Job |
 |---|---|---|
-| `team:explorer` | Sonnet | Maps the code the task touches, read-only |
-| `team:implementor` | Opus | Writes the code for one assigned part |
-| `team:tester` | Opus | Writes tests from the task file and reports gaps |
-| `team:simplifier` | Opus | Reports over-engineering and low-value tests in the finished change, read-only |
-| `team:doc-writer` | Sonnet | Documents the finished diff |
+| `explorer` | Sonnet | Maps the code the task touches, read-only |
+| `implementor` | Opus | Writes the code for one assigned part |
+| `tester` | Opus | Writes tests from the task file and reports gaps |
+| `simplifier` | Opus | Reports over-engineering and low-value tests in the finished change, read-only |
+| `doc-writer` | Sonnet | Documents the finished diff |
+
+## Start the agents
+
+- **Claude Code with the skillset plugin:** use `subagent_type:
+  skillset:<agent>`, such as `skillset:tester`. Each agent's model and tools
+  come with it.
+- **Anywhere else, such as Codex:** each agent is a role file in the `agents/`
+  folder at the root of this skill's repo or plugin. Resolve this skill
+  folder's real path first, because an installer may have linked it, then go
+  three folders up. Start a subagent with the text of `agents/<agent>.md`
+  below its frontmatter, followed by your message. Use the model in the table
+  where your tool lets you choose one. If your tool has no subagents, tell the
+  user that this skill needs them, and stop.
+
+The steps below say `SendMessage` for a follow-up to a running agent. Use
+your tool's equivalent.
+
+## Check the model
 
 This skill is written for Main on Fable. If this session runs on another
 model, say so to the user once, and go on unless they want to switch.
 
 ## Decide whether to use the team
 
-If the user typed `/team:run`, skip to the next section.
+If the user invoked this skill by name, skip to the next section.
 
 Otherwise, check the task against the criteria in this skill's description.
 If it meets them, tell the user in one line which agents you would start, and

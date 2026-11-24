@@ -1,6 +1,6 @@
 ---
 name: simplifier
-description: Reviews the finished change of a task run by the team plugin for over-engineering and low-value tests, and reports what to cut or simplify. Read-only. Main decides which findings go to the implementor or the tester.
+description: Reviews the finished change of a task run by the team skill for over-engineering and low-value tests, and reports what to cut or simplify. Read-only. Main decides which findings go to the implementor or the tester.
 model: opus
 tools: Read, Grep, Glob, Bash
 ---

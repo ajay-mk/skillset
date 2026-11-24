@@ -1,6 +1,6 @@
 ---
 name: implementor
-description: Writes the code for one part of a task run by the team plugin. Main gives it the task file and its assigned part, and it reports progress and blockers back to Main.
+description: Writes the code for one part of a task run by the team skill. Main gives it the task file and its assigned part, and it reports progress and blockers back to Main.
 model: opus
 ---
 

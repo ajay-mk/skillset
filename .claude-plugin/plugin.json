@@ -1,11 +1,16 @@
 {
   "name": "skillset",
-  "version": "0.1.0",
-  "description": "The skillset repo's skills (pull requests, review, research) and the read-only review agent that full-review starts for each pass.",
+  "version": "0.2.0",
+  "description": "The skillset repo's skills (team, pull requests, review, research) and the agents that team and full-review start.",
   "author": {
     "name": "Ajay Melekamburath",
     "url": "https://github.com/ajay-mk"
   },
   "license": "MIT",
-  "skills": ["./skills/pr", "./skills/review", "./skills/research"]
+  "skills": [
+    "./skills/agents",
+    "./skills/pr",
+    "./skills/review",
+    "./skills/research"
+  ]
 }

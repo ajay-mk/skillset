@@ -1,6 +1,6 @@
 ---
 name: explorer
-description: Maps the code that a task run by the team plugin will touch, before Main writes the task file. Read-only. Returns the relevant files, interfaces, and build and test commands.
+description: Maps the code that a task run by the team skill will touch, before Main writes the task file. Read-only. Returns the relevant files, interfaces, and build and test commands.
 model: sonnet
 tools: Read, Grep, Glob, Bash
 ---
