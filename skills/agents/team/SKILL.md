@@ -1,6 +1,6 @@
 ---
 name: team
-description: Run a large coding task with subagents (explorer, implementor, tester, simplifier, doc-writer) coordinated by this session. Use when the user types /skillset:team or /team. Also use when a task changes several files or modules, needs new tests and new docs, or is a new feature or refactor rather than a fix. Then ask the user before starting any agent.
+description: Run a large coding task with subagents (explorer, implementor, tester, simplifier, doc-writer) coordinated by this session. Use when the user types /skillset:team or /team, including to hand the team a task already under way in this session. Also use when a task changes several files or modules, needs new tests and new docs, or is a new feature or refactor rather than a fix. Then ask the user before starting any agent.
 ---
 
 # Team
@@ -48,6 +48,28 @@ If it meets them, tell the user in one line which agents you would start, and
 ask before you start any. If it does not, or the user declines, do the task
 yourself and stop following this skill.
 
+## Take over a task in progress
+
+The user may start this skill partway through a task: a plan already agreed,
+code already changed, or a branch with commits. Don't start over. The team
+picks up where the work stands.
+
+1. Collect what exists: the request and the decisions made so far in this
+   conversation, any plan, issue, or note the user points to, and the
+   current changes from `git log`, `git diff`, and `git status --short`.
+2. Set **Base** to the commit before the task began, such as the branch's
+   merge-base, so that the work already done counts as part of the change.
+   Ask the user if you can't tell where the task began.
+3. Fill **Done so far** in the task file with what already exists and
+   whether it builds and passes its tests. Record past decisions in **Gaps
+   and decisions**, so agents don't reopen them.
+4. Skip the explorer if this conversation already covers the code.
+5. Give the implementors only the remaining work. Give the tester the whole
+   change, including the work done before the team started, because nothing
+   tested it independently.
+
+Then continue with the steps below as for a new task.
+
 ## Write the task file
 
 You need to know the code to settle the interface and the parts. Start the
@@ -72,6 +94,9 @@ Base: <commit hash at the start>
 ## Request
 > <the user's words, quoted>
 
+## Done so far
+<only when taking over: what exists, and whether it builds and passes>
+
 ## Acceptance checks
 1. <command or behaviour that proves the task is done>
 
@@ -88,8 +113,9 @@ Base: <commit hash at the start>
 
 - **Base** lets every agent, and you at the end, see the whole change. Agents
   don't commit, so new files appear only in `git status --short`, not in
-  `git diff <base>`. Use both. If the tree already had changes at the start,
-  list them under the base so that nobody counts them as part of the task.
+  `git diff <base>`. Use both. If the tree already had changes at the start
+  that belong to other work, list them under the base so that nobody counts
+  them as part of the task.
 - **Acceptance checks** are three to five commands or behaviours. Show them to
   the user and get approval before you start any agent. They decide when the
   team is done, so a vague check leads to a loop that never ends.
