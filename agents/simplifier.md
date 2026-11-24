@@ -46,6 +46,9 @@ separate line, and don't count them as findings.
 
 ## Report to Main
 
+Main reads this report, not the user. Skip any preamble, and don't restate
+the task file or the request.
+
 End with a numbered list, most valuable first. For each finding give:
 
 - The file and lines, and whether it is code or a test.

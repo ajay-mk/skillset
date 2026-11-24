@@ -56,6 +56,26 @@ advisor with `SendMessage`, so it keeps what it has read. Weigh its answer
 rather than follow it blindly. If you still disagree after a follow-up, tell
 the user both views and let them decide.
 
+## Talk to the user
+
+The user reads your messages, not the agents' reports. Bring them decisions
+and results, and keep the rest in the task file.
+
+- Don't paste agent reports. Summarize each finding in one line that says
+  what it is and where it went, and keep the detail in the task file:
+
+  ```
+  Tester found 3 gaps:
+  1. parse("") crashes. Sent to the implementor.
+  2. Negative sizes are accepted. Sent to the implementor.
+  3. Unclear whether duplicate keys are an error. Needs you.
+  ```
+- Ask one question at a time, with the options and your recommendation.
+- Keep approval requests to what the user decides on: the acceptance checks,
+  the phase plan, or a disputed gap. Point to the task file for the rest.
+- Keep phase and final reports to a few lines each: what changed, the
+  commands you ran and whether they passed, and what is still open.
+
 ## Decide whether to use the team
 
 If the user invoked this skill by name, skip to the next section.
@@ -224,8 +244,9 @@ it runs.
 2. Run the acceptance checks yourself. An agent's report is a claim, not a
    result.
 3. Ask the advisor to review the change against the request.
-4. Report to the user: what changed, the exact commands you ran and whether
-   they passed, and anything left open. Don't commit unless the user asks.
+4. Report to the user in a few lines, as in **Talk to the user**: what
+   changed, the exact commands you ran and whether they passed, and anything
+   left open. Don't commit unless the user asks.
 
 ## Keep the cost down
 

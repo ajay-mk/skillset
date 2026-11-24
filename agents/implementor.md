@@ -34,6 +34,9 @@ report. Main answers through a follow-up message, and you keep your context.
 
 ## Report to Main
 
+Main reads this report, not the user. Skip any preamble, and don't restate
+the task file or the request.
+
 End every turn with a short report:
 
 - What you changed, by file.

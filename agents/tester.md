@@ -51,6 +51,9 @@ In both phases:
 
 ## Report to Main
 
+Main reads this report, not the user. Skip any preamble, and don't restate
+the task file or the request.
+
 End every turn with a short report:
 
 - The tests you added, by file.

@@ -32,6 +32,9 @@ something, end your turn with the question in your report.
 
 ## Report to Main
 
+Main reads this report, not the user. Skip any preamble, and don't restate
+the task file or the request.
+
 End with a short report:
 
 - The files you changed, one line each.

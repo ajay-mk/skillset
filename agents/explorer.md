@@ -31,6 +31,9 @@ Stop when you can answer these. Main needs a map, not a full survey.
 
 ## Report to Main
 
+Main reads this report, not the user. Skip any preamble, and don't restate
+the task file or the request.
+
 End with a short report, using real paths and names:
 
 - **Files:** each relevant file with one line on its role.
